@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2024 at 08:04 AM
+-- Generation Time: Aug 09, 2024 at 03:34 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,6 +47,33 @@ INSERT INTO `adminregister` (`id`, `username`, `email`, `passwordagain`, `passwo
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `carprice`
+--
+
+CREATE TABLE `carprice` (
+  `id` int(11) NOT NULL,
+  `carname` varchar(200) NOT NULL,
+  `cartype` varchar(200) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `services` varchar(200) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `carprice`
+--
+
+INSERT INTO `carprice` (`id`, `carname`, `cartype`, `price`, `services`, `created_at`, `updated_at`) VALUES
+(1, 'test1', 'test2', 0.00, '', '2024-08-09 11:09:39', '2024-08-09 11:09:39'),
+(2, 'abc', 'cbjsbfkjs', 0.00, 'khdkds', '2024-08-09 11:10:11', '2024-08-09 11:10:11'),
+(3, 'test1', 'test2', 5646546.00, 'test3', '2024-08-09 11:54:58', '2024-08-09 11:54:58'),
+(4, 'test1', 'dsgdfsh', 5646546.00, 'snakjdja', '2024-08-09 12:29:24', '2024-08-09 12:29:24'),
+(5, 'abc', 'dsgdfsh', 5646546.00, 'snakjdja', '2024-08-09 12:31:04', '2024-08-09 12:31:04');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `userregister`
 --
 
@@ -79,6 +106,12 @@ ALTER TABLE `adminregister`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `carprice`
+--
+ALTER TABLE `carprice`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `userregister`
 --
 ALTER TABLE `userregister`
@@ -93,6 +126,12 @@ ALTER TABLE `userregister`
 --
 ALTER TABLE `adminregister`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `carprice`
+--
+ALTER TABLE `carprice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `userregister`
