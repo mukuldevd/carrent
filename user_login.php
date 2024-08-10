@@ -36,7 +36,7 @@
 				
 				$_SESSION['username'] = $username;
 				
-				header('location:dashboard.php');
+				header('location:dashboardUser.php');
 			}else{
 				$unsuccessfulmsg = 'Wrong email or Password!';
 			}

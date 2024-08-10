@@ -161,7 +161,7 @@ $result = $conn->query($sql);
 <div class="menu-item">
 <a href="widgets.html" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
-<span class="menu-text">car rental services</span>
+<span class="menu-text">car status</span>
 </a>
 </div>
 </a>
@@ -198,7 +198,7 @@ $result = $conn->query($sql);
 <h1 class="page-header mb-0">Products</h1>
 </div>
 <div class="ms-auto">
-<a href="form_elements.php" class="btn btn-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add Product</a>
+<a href="" class="btn btn-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> </a>
 </div>
 </div>
 <div class="mb-sm-4 mb-3 d-sm-flex">
@@ -255,7 +255,7 @@ $result = $conn->query($sql);
 <th class="pt-0 pb-2">price</th>
 <th class="pt-0 pb-2">services-name</th>
 <th class="pt-0 pb-2">status</th>
-<th class="pt-0 pb-2">action</th>
+<th class="pt-0 pb-2">Book Now</th>
 </tr>
 </thead>
 
@@ -273,8 +273,7 @@ if ($result->num_rows > 0) {
         echo '<td class="align-middle">' . $row["services"] . '</td>';
 		echo '<td class="align-middle">' .($row["status"] == 1 ? "Available" : "Unavailable"). '</td>';
         echo '<td class="align-middle">';
-        echo '<a href="formEdit.php?id=' . $row["id"] . '" type="button" class="btn btn-primary"><i class="fas fa-edit"></i></a>';
-        echo '<button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>';
+        echo '<button type="button" class="btn btn-danger">Book Now</button>';
         echo '</td>';
         echo "</tr>";
 	} 
