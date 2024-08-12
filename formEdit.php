@@ -5,10 +5,10 @@ session_start();
 
 $conn = new mysqli('localhost', 'root', '', 'rentalcar');
 
-if (!isset($_SESSION['username'])) {
-    header('Location: admin_login.php');
-    exit();
-}
+// if (!isset($_SESSION['username'])) {
+//     header('Location: admin_login.php');
+//     exit();
+// }
 
 // Check if 'id' is present in the URL
 if (isset($_GET['id'])) {

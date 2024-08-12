@@ -5,10 +5,10 @@
 	
 	$conn = new mysqli('localhost','root','','rentalcar');
 
-	if (!isset($_SESSION['username'])) {
-		header('Location: user_login.php');
-		exit();
-	}
+	// if (!isset($_SESSION['username'])) {
+	// 	header('Location: user_login.php');
+	// 	exit();
+	// }
 	
 	$passmsg = $emailmsg = $unsuccessfulmsg = '';
 
