@@ -3,6 +3,11 @@
 <?php 
 	session_start();
     $conn = new mysqli('localhost', 'root', '', 'rentalcar');
+	
+	if (!isset($_SESSION['username'])) {
+		header('Location: user_login.php');
+		exit();
+	}
 ?>
 <!-- Mirrored from seantheme.com/studio/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:29:44 GMT -->
 <head>

@@ -4,6 +4,11 @@
 	session_start();
     $conn = new mysqli('localhost', 'root', '', 'rentalcar');
 
+	if (!isset($_SESSION['username'])) {
+		header('Location: admin_login.php');
+		exit();
+	}
+
 
 	if (isset($_POST['submit'])) {
 		$carname = $_POST['carname'];

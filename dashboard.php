@@ -3,6 +3,11 @@
 <?php 
 	session_start();
     $conn = new mysqli('localhost', 'root', '', 'rentalcar');
+
+	if (!isset($_SESSION['username'])) {
+		header('Location: admin_login.php');
+		exit();
+	}
 ?>
 <!-- Mirrored from seantheme.com/studio/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:29:44 GMT -->
 <head>
@@ -154,9 +159,9 @@
 </div>
 </a>
 
-<a href="logout.php" class="text-decoration-none">
+<a href="logoutAdmin.php" class="text-decoration-none">
 <div class="menu-item">
-<a href="logout.php" class="menu-link">
+<a href="logoutAdmin.php" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
 <span class="menu-text">logout</span>
 </a>
