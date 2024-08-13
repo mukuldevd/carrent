@@ -11,7 +11,7 @@
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 
-		
+		$passwordmd5 	= md5($password);
 		
 		if(empty($email)){
 			$emailmsg = 'Enter an email.';
@@ -26,7 +26,7 @@
 		}
 		
 		if(!empty($email) && !empty($password)){
-			$sql = "SELECT * FROM adminregister WHERE email='$email' AND password = '$password'";
+			$sql = "SELECT * FROM adminregister WHERE email='$email' AND password = '$passwordmd5'";
 			$query = $conn->query($sql);
 			
 			if($query->num_rows > 0){
@@ -63,7 +63,7 @@
 
 <div class="login-content">
 <p class="text-danger"><?php echo $unsuccessfulmsg ?> </p>
-<form action="user_login.php" method="POST" name="user_login">
+<form action="admin_login.php" method="POST" name="admin_login">
 <h1 class="text-center">Sign In</h1>
 <div class="text-muted text-center mb-4">
 For your protection, please verify your identity.
@@ -80,7 +80,7 @@ For your protection, please verify your identity.
 </div>
 <button type="submit" name="submit" class="btn btn-theme btn-lg d-block w-100 fw-500 mb-3">Sign In</button>
 <div class="text-center text-muted">
-Don't have an account yet? <a href="user_registration.php" class="text-decoration-none">Sign up</a>.
+Don't have an account yet? <a href="admin_registration.php" class="text-decoration-none">Sign up</a>.
 </div>
 </form>
 </div>

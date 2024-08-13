@@ -4,10 +4,7 @@
 	session_start();
     $conn = new mysqli('localhost', 'root', '', 'rentalcar');
 
-	// if (!isset($_SESSION['username'])) {
-	// 	header('Location: admin_login.php');
-	// 	exit();
-	// }
+	
 
 
 	if (isset($_POST['submit'])) {
@@ -161,7 +158,7 @@
 
 
 <div class="menu-item active">
-<a href="index.html" class="menu-link">
+<a href="" class="menu-link">
 <span class="menu-icon"><i class="fa fa-laptop"></i></span>
 <span class="menu-text">Dashboard</span>
 </a>
@@ -170,7 +167,7 @@
 
 <a href="page_products.php" class="text-decoration-none">
 <div class="menu-item">
-<a href="page_products.php" class="menu-link">
+<a href="" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
 <span class="menu-text">car rental services</span>
 </a>

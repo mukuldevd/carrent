@@ -5,10 +5,7 @@
 	
 	$conn = new mysqli('localhost','root','','rentalcar');
 
-	// if (!isset($_SESSION['username'])) {
-	// 	header('Location: user_login.php');
-	// 	exit();
-	// }
+	
 	
 	$passmsg = $emailmsg = $unsuccessfulmsg = '';
 
@@ -16,7 +13,7 @@
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 
-		
+		$passwordmd5 	= md5($password);
 		
 		if(empty($email)){
 			$emailmsg = 'Enter an email.';
@@ -31,7 +28,7 @@
 		}
 		
 		if(!empty($email) && !empty($password)){
-			$sql = "SELECT * FROM userregister WHERE email='$email' AND password = '$password'";
+			$sql = "SELECT * FROM userregister WHERE email='$email' AND password = '$passwordmd5'";
 			$query = $conn->query($sql);
 			
 			if($query->num_rows > 0){

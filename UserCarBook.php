@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--  -->
-
 <?php 
-session_start();
+	session_start();
+    $conn = new mysqli('localhost', 'root', '', 'rentalcar');
 
-$conn = new mysqli('localhost', 'root', '', 'rentalcar');
+	
 
 
+	if (isset($_POST['submit'])) {
+		$datebooking = $_POST['datebooking'];
+		$timebooking = $_POST['timebooking'];
+		$username = $_SESSION['username'];
+		$carname = $_POST['carname'];
+		$cartype = $_POST['cartype'];
+		$price = $_POST['price'];
+		$services = $_POST['services'];
+	
+		$sql = "INSERT INTO usercarstatus (datebooking, timebooking, username, carname, cartype, price, services) VALUES ('$datebooking', '$timebooking', '$username', '$cartype', '$price', '$services', '$carname')";
+		if($conn->query($sql) == TRUE){
+			header('location:uesr_car_status.php');
+			echo "New record created successfully";
+		}else{
+			echo 'data not inserted';
+		}
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
-// SQL query to fetch data
-$sql = "SELECT * FROM carprice";
-$result = $conn->query($sql);
+	}
+	
 ?>
-
-<!-- Mirrored from seantheme.com/studio/page_products.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:31:37 GMT -->
+<!-- Mirrored from seantheme.com/studio/form_elements.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:31:15 GMT -->
 <head>
 <meta charset="utf-8">
-<title>Studio | Products</title>
+<title>Studio | Form Elements</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content>
 <meta name="author" content>
@@ -130,7 +139,7 @@ $result = $conn->query($sql);
 <div class="menu-img online">
 <img src="assets/img/user/user.jpg" alt class="ms-100 mh-100 rounded-circle">
 </div>
-<div class="menu-text"><span class="__cf_email__" data-cfemail="2b414443455846425f436b585f5e4f424405484446">[email&#160;protected]</span></div>
+<div class="menu-text"><span class="__cf_email__" data-cfemail="a6ccc9cec8d5cbcfd2cee6d5d2d3c2cfc988c5c9cb">[email&#160;protected]</span></div>
 </a>
 <div class="dropdown-menu dropdown-menu-end me-lg-3">
 <a class="dropdown-item d-flex align-items-center" href="profile.html">Edit Profile <i class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i></a>
@@ -152,18 +161,18 @@ $result = $conn->query($sql);
 
 
 <div class="menu-item active">
-<a href="" class="menu-link">
+<a href="index.html" class="menu-link">
 <span class="menu-icon"><i class="fa fa-laptop"></i></span>
 <span class="menu-text">Dashboard</span>
 </a>
 </div>
 
 
-<a href="page_products.php" class="text-decoration-none">
+<a href="uesr_car status.php" class="text-decoration-none">
 <div class="menu-item">
-<a href="page_products.php" class="menu-link">
+<a href="uesr_car status.php" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
-<span class="menu-text">car rental services</span>
+<span class="menu-text">car status</span>
 </a>
 </div>
 </a>
@@ -184,134 +193,128 @@ $result = $conn->query($sql);
 </div>
 </div>
 </div>
-
 <button class="app-sidebar-mobile-backdrop" data-dismiss="sidebar-mobile"></button>
 
 </div>
 
 
 <div id="content" class="app-content">
-<div class="d-flex align-items-center mb-3">
-<div>
+
+<div class="container">
+
+<div class="row justify-content-center">
+
+<div class="col-xl-10">
+
+<div class="row">
+
+<div class="col-xl-9">
 <ul class="breadcrumb">
-<li class="breadcrumb-item"><a href="#">PAGES</a></li>
-<li class="breadcrumb-item active">PRODUCTS</li>
+<li class="breadcrumb-item"><a href="#">Car Book</a></li>
+<li class="breadcrumb-item active">Car Book</li>
 </ul>
-<h1 class="page-header mb-0">Products</h1>
-</div>
-<div class="ms-auto">
-<a href="form_elements.php" class="btn btn-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> Add Product</a>
-</div>
-</div>
-<div class="mb-sm-4 mb-3 d-sm-flex">
-<div class="mt-sm-0 mt-2"><a href="#" class="text-body text-decoration-none"><i class="fa fa-download fa-fw me-1 text-muted"></i> Export</a></div>
-<div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-body text-decoration-none"><i class="fa fa-upload fa-fw me-1 text-muted"></i> Import</a></div>
-<div class="ms-sm-4 mt-sm-0 mt-2 dropdown-toggle">
-<a href="#" data-bs-toggle="dropdown" class="text-body text-decoration-none">More Actions</a>
-<div class="dropdown-menu">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-<div role="separator" class="dropdown-divider"></div>
-<a class="dropdown-item" href="#">Separated link</a>
-</div>
-</div>
-</div>
+<h1 class="page-header">
+Car Book <small>page header description goes here...</small>
+</h1>
+<hr class="mb-4">
+
+<div id="formGrid" class="mb-5">
+<h4>Car Book</h4>
+<p>More complex forms can be built using bootstrap grid classes. Use these for form layouts that require multiple columns, varied widths, and additional alignment options.</p>
 <div class="card">
-<ul class="nav nav-tabs nav-tabs-v2 px-4">
-<li class="nav-item me-3"><a href="#allTab" class="nav-link active px-2" data-bs-toggle="tab">All</a></li>
-<li class="nav-item me-3"><a href="#publishedTab" class="nav-link px-2" data-bs-toggle="tab">Published</a></li>
-<li class="nav-item me-3"><a href="#expiredTab" class="nav-link px-2" data-bs-toggle="tab">Expired</a></li>
-<li class="nav-item me-3"><a href="#deletedTab" class="nav-link px-2" data-bs-toggle="tab">Deleted</a></li>
-</ul>
-<div class="tab-content p-4">
-<div class="tab-pane fade show active" id="allTab">
+<div class="card-body">
 
-<div class="input-group mb-4">
-<button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter products &nbsp;</button>
-<div class="dropdown-menu">
-<a class="dropdown-item" href="#">Action</a>
-<a class="dropdown-item" href="#">Another action</a>
-<a class="dropdown-item" href="#">Something else here</a>
-<div role="separator" class="dropdown-divider"></div>
-<a class="dropdown-item" href="#">Separated link</a>
-</div>
-<div class="flex-fill position-relative z-1">
-<div class="input-group">
-<div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0" style="z-index: 1020;">
-<i class="fa fa-search opacity-5"></i>
-</div>
-<input type="text" class="form-control ps-35px" placeholder="Search products">
+
+<form action="UserCarBook.php" method="POST" name="UserCarBook">
+
+
+<input type="hidden" name="username" value="">
+
+<div class="mb-3 row">
+<label for="inputEmail3" class="col-sm-2 col-form-label">carname</label>
+<div class="col-sm-10">
+<input type="text" name="carname" class="form-control" id="inputEmail3">
 </div>
 </div>
+<div class="mb-3 row">
+<label for="inputPassword3" class="col-sm-2 col-form-label">cartype</label>
+<div class="col-sm-10">
+<input type="text" name="cartype" class="form-control" id="inputPassword3">
+</div>
+</div>
+<div class="mb-3 row">
+<label for="inputEmail3" class="col-sm-2 col-form-label">price</label>
+<div class="col-sm-10">
+<input type="text" name="price" class="form-control" id="inputEmail3">
+</div>
+</div>
+<div class="mb-3 row">
+<label for="inputPassword3" class="col-sm-2 col-form-label">services</label>
+<div class="col-sm-10">
+<input type="text" name="services" class="form-control" id="inputPassword3">
+</div>
+</div>
+<div class="mb-3 row">
+<label for="inputPassword3" class="col-sm-2 col-form-label">Car book pick up date</label>
+<div class="col-sm-10">
+<input type="date" name="datebooking" class="form-control" id="inputPassword3">
+</div>
+</div>
+<div class="mb-3 row">
+<label for="inputPassword3" class="col-sm-2 col-form-label">Car book pick up time</label>
+<div class="col-sm-10">
+<input type="time" name="timebooking" class="form-control" id="inputPassword3">
+</div>
 </div>
 
-
-<div class="table-responsive">
-<table class="table table-hover text-nowrap">
-<thead>
-<tr>
-<th class="pt-0 pb-2"></th>
-<th class="pt-0 pb-2">carname</th>
-<th class="pt-0 pb-2">cartype</th>
-<th class="pt-0 pb-2">price</th>
-<th class="pt-0 pb-2">services-name</th>
-<th class="pt-0 pb-2">status</th>
-<th class="pt-0 pb-2">action</th>
-</tr>
-</thead>
-
-<tbody>
-
-<?php
-if ($result->num_rows > 0) {
-    // Output data for each row
-    while($row = $result->fetch_assoc()) {
-		echo "<tr>";
-		echo '<td class="align-middle"><div class="ms-3"><a href="page_product_details.html">' . $row["id"] . '</a></div></td>';
-        echo '<td class="align-middle"><div class="ms-3"><a href="page_product_details.html">' . $row["carname"] . '</a></div></td>';
-        echo '<td class="align-middle">' . $row["cartype"] . '</td>';
-        echo '<td class="align-middle">' . $row["price"] . '</td>';
-        echo '<td class="align-middle">' . $row["services"] . '</td>';
-		echo '<td class="align-middle">' .($row["status"] == 1 ? "Available" : "Unavailable"). '</td>';
-        echo '<td class="align-middle">';
-        echo '<a href="formEdit.php?id=' . $row["id"] . '" type="button" class="btn btn-primary"><i class="fas fa-edit"></i></a>';
-        echo '<button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>';
-        echo '</td>';
-        echo "</tr>";
-	} 
-}else {
-    echo "0 results";
-}
-
-$conn->close();
-?>
-
-
-
-
-</tbody>
-</table>
+<div class="form-group row">
+<div class="col-sm-10 offset-sm-2">
+<button type="submit" name="submit" class="btn btn-outline-theme">Save</button>
 </div>
-
-<div class="d-md-flex align-items-center">
-<div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
-Showing 1 to 10 of 57 entries
 </div>
-<ul class="pagination mb-0 justify-content-center">
-<li class="page-item disabled"><a class="page-link">Previous</a></li>
-<li class="page-item"><a class="page-link" href="#">1</a></li>
-<li class="page-item active"><a class="page-link" href="#">2</a></li>
-<li class="page-item"><a class="page-link" href="#">3</a></li>
-<li class="page-item"><a class="page-link" href="#">4</a></li>
-<li class="page-item"><a class="page-link" href="#">5</a></li>
-<li class="page-item"><a class="page-link" href="#">6</a></li>
-<li class="page-item"><a class="page-link" href="#">Next</a></li>
-</ul>
+</form>
+</div>
+<div class="hljs-container rounded-bottom">
+<pre><code class="xml" data-url="assets/data/form-elements/code-11.json"></code></pre>
 </div>
 </div>
 </div>
+
+
 </div>
+
+
+<div class="col-xl-3">
+
+<nav id="sidebar-bootstrap" class="navbar navbar-sticky d-none d-xl-block">
+<nav class="nav">
+<a class="nav-link" href="#formControls" data-toggle="scroll-to">Form controls</a>
+<a class="nav-link" href="#sizing" data-toggle="scroll-to">Sizing</a>
+<a class="nav-link" href="#readonly" data-toggle="scroll-to">Readonly</a>
+<a class="nav-link" href="#readonlyPlainText" data-toggle="scroll-to">Readonly plain text</a>
+<a class="nav-link" href="#rangeInputs" data-toggle="scroll-to">Range inputs</a>
+<a class="nav-link" href="#checkboxes" data-toggle="scroll-to">Checkboxes</a>
+<a class="nav-link" href="#radios" data-toggle="scroll-to">Radios</a>
+<a class="nav-link" href="#switches" data-toggle="scroll-to">Switches</a>
+<a class="nav-link" href="#selectMenu" data-toggle="scroll-to">Select menu</a>
+<a class="nav-link" href="#fileBrowser" data-toggle="scroll-to">File browser</a>
+<a class="nav-link" href="#formGrid" data-toggle="scroll-to">Form grid</a>
+<a class="nav-link" href="#helpText" data-toggle="scroll-to">Help text</a>
+<a class="nav-link" href="#inputGroup" data-toggle="scroll-to">Input group</a>
+<a class="nav-link" href="#validation" data-toggle="scroll-to">Validation</a>
+</nav>
+</nav>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 
@@ -358,20 +361,25 @@ Adjust the appearance to reduce glare and give your eyes a break.
 </div>
 
 
-<script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/vendor.min.js" type="59345fa577d7dffb08a9b947-text/javascript"></script>
-<script src="assets/js/app.min.js" type="59345fa577d7dffb08a9b947-text/javascript"></script>
+<script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/vendor.min.js" type="479b009c9152be080df6bd3e-text/javascript"></script>
+<script src="assets/js/app.min.js" type="479b009c9152be080df6bd3e-text/javascript"></script>
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3Q0VGQKY3" type="59345fa577d7dffb08a9b947-text/javascript"></script>
-<script type="59345fa577d7dffb08a9b947-text/javascript">
+<script src="assets/plugins/%40highlightjs/cdn-assets/highlight.min.js" type="479b009c9152be080df6bd3e-text/javascript"></script>
+<script src="assets/js/demo/highlightjs.demo.js" type="479b009c9152be080df6bd3e-text/javascript"></script>
+<script src="assets/js/demo/sidebar-scrollspy.demo.js" type="479b009c9152be080df6bd3e-text/javascript"></script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3Q0VGQKY3" type="479b009c9152be080df6bd3e-text/javascript"></script>
+<script type="479b009c9152be080df6bd3e-text/javascript">
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 
 		gtag('config', 'G-Y3Q0VGQKY3');
 	</script>
-<script src="../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="59345fa577d7dffb08a9b947-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8afd7483ac144dd9","version":"2024.7.0","r":1,"serverTiming":{"name":{"cfL4":true}},"token":"4db8c6ef997743fda032d4f73cfeff63","b":1}' crossorigin="anonymous"></script>
+<script src="../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="479b009c9152be080df6bd3e-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8afd745f0ed24dd9","version":"2024.7.0","r":1,"serverTiming":{"name":{"cfL4":true}},"token":"4db8c6ef997743fda032d4f73cfeff63","b":1}' crossorigin="anonymous"></script>
 </body>
 
-<!-- Mirrored from seantheme.com/studio/page_products.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:31:41 GMT -->
+<!-- Mirrored from seantheme.com/studio/form_elements.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:31:15 GMT -->
 </html>
