@@ -5,7 +5,7 @@
     $conn = new mysqli('localhost', 'root', '', 'rentalcar');
 
 	
-
+$today = date('Y-m-d');
 
 	if (isset($_POST['submit'])) {
 		$datebooking = $_POST['datebooking'];
@@ -263,7 +263,7 @@ Car Book <small>page header description goes here...</small>
 <div class="mb-3 row">
 <label for="inputPassword3" class="col-sm-2 col-form-label">Car book pick up time</label>
 <div class="col-sm-10">
-<input type="time" name="timebooking" class="form-control" id="inputPassword3">
+<input type="time" name="timebooking" class="form-control" id="inputPassword3" min="<?php echo $today; ?>">
 </div>
 </div>
 
