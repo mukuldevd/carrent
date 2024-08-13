@@ -276,7 +276,7 @@ if ($result->num_rows > 0) {
 		echo '<td class="align-middle">' .($row["status"] == 1 ? "Available" : "Unavailable"). '</td>';
         echo '<td class="align-middle">';
         echo '<a href="formEdit.php?id=' . $row["id"] . '" type="button" class="btn btn-primary"><i class="fas fa-edit"></i></a>';
-        echo '<button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>';
+        echo '<a href="formdelete.php?id=' . $row["id"] . '" type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>';
         echo '</td>';
         echo "</tr>";
 	} 

@@ -15,8 +15,13 @@
 	
 		$sql = "INSERT INTO carprice (carname, cartype, price, services) VALUES ('$carname', '$cartype', '$price', '$services')";
 		if($conn->query($sql) == TRUE){
-			header('location:page_products.php');
-			echo "New record created successfully";
+
+			echo "<script>
+            alert('New record created successfully');
+            window.location.href = 'page_products.php';
+            </script>";
+        exit();
+			
 		}else{
 			echo 'data not inserted';
 		}
@@ -174,9 +179,9 @@
 </div>
 </a>
 
-<a href="logout.php" class="text-decoration-none">
+<a href="logoutAdmin.php" class="text-decoration-none">
 <div class="menu-item">
-<a href="logout.php" class="menu-link">
+<a href="logoutAdmin.php" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
 <span class="menu-text">logout</span>
 </a>
@@ -211,7 +216,9 @@
 <li class="breadcrumb-item active">FORM ELEMENTS</li>
 </ul>
 <h1 class="page-header">
-Form Elements <small>page header description goes here...</small>
+Form Elements <small>page header description goes here...<div class="ms-auto">
+<a href="page_products.php" class="btn btn-theme"><i class="fa fa-plus-circle fa-fw me-1"></i> show Product</a>
+</div></small>
 </h1>
 <hr class="mb-4">
 
@@ -247,9 +254,10 @@ Form Elements <small>page header description goes here...</small>
 </div>
 
 <div class="form-group row">
-<div class="col-sm-10 offset-sm-2">
+<div class="col-sm-2 offset-sm-2">
 <button type="submit" name="submit" class="btn btn-outline-theme">Save</button>
 </div>
+
 </div>
 </form>
 </div>
