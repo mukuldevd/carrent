@@ -9,7 +9,16 @@ $conn = new mysqli('localhost', 'root', '', 'rentalcar');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
+if (!isset($_SESSION['userid'])) {
+    // If the user is not logged in, redirect to the login page
+    header('Location: user_login.php');
+    exit();
+}
+if (!isset($_SESSION['userid'])) {
+    // If the user is not logged in, redirect to the login page
+    header('Location: user_login.php');
+    exit();
+}
 // Check if 'id' is set in the URL
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];

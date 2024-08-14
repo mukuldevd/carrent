@@ -4,7 +4,11 @@
 session_start();
 
 $conn = new mysqli('localhost', 'root', '', 'rentalcar');
-
+if (!isset($_SESSION['userid'])) {
+    // If the user is not logged in, redirect to the login page
+    header('Location: user_login.php');
+    exit();
+}
 // Retrieve the ID from GET request or POST request
 // Check if 'id' is present in the URL
 if (isset($_GET['id'])) {

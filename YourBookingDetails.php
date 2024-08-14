@@ -14,6 +14,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+if (!isset($_SESSION['userid'])) {
+    // If the user is not logged in, redirect to the login page
+    header('Location: user_login.php');
+    exit();
+}
+
 $userid = $_SESSION['userid'];
 
 // SQL query to fetch data
