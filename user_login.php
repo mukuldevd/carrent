@@ -34,9 +34,11 @@
 			if($query->num_rows > 0){
 				$row = $query->fetch_assoc();
 				$username = $row['username'];
-				
+				$userid = $row['userid'];
 				
 				$_SESSION['username'] = $username;
+				$_SESSION['userid'] = $userid;
+				
 				
 				header('location:dashboardUser.php');
 			}else{

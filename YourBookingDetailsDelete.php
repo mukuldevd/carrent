@@ -11,11 +11,11 @@ if ($conn->connect_error) {
 }
 
 // Check if 'id' is set in the URL
-if (isset($_GET['carid']) && is_numeric($_GET['carid'])) {
-    $carid = $_GET['carid'];
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $id = $_GET['id'];
 
     // Prepare and bind
-    $stmt = $conn->prepare("DELETE FROM carprice WHERE carid = ?");
+    $stmt = $conn->prepare("DELETE FROM usercarstatus WHERE id = ?");
     if ($stmt === false) {
         die("Prepare failed: " . $conn->error);
     }
@@ -26,7 +26,7 @@ if (isset($_GET['carid']) && is_numeric($_GET['carid'])) {
     if ($stmt->execute()) {
         echo "<script>
             alert('Record deleted successfully');
-            window.location.href = 'page_products.php';
+            window.location.href = 'YourBookingDetails.php';
             </script>";
         exit();
     } else {

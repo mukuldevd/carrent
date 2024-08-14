@@ -8,10 +8,10 @@ $conn = new mysqli('localhost', 'root', '', 'rentalcar');
 
 
 // Check if 'id' is present in the URL
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['carid'])) {
+    $carid = $_GET['carid'];
 
-    $sql = "SELECT * FROM carprice WHERE id=$id";
+    $sql = "SELECT * FROM carprice WHERE carid=$carid";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
 
@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
         $services = $_POST['services'];
 
         // SQL query to update the record where id matches
-        $sql = "UPDATE carprice SET carname='$carname', cartype='$cartype', price='$price', services='$services' WHERE id=$id";
+        $sql = "UPDATE carprice SET carname='$carname', cartype='$cartype', price='$price', services='$services' WHERE carid=$carid";
 
         // Check if the record was updated successfully
         if ($conn->query($sql) === TRUE) {
@@ -32,14 +32,14 @@ if (isset($_GET['id'])) {
                 $_SESSION['message'] = "Record updated successfully.";
             } else {
                 $_SESSION['status'] = "error";
-                $_SESSION['message'] = "No matching record found for ID $id.";
+                $_SESSION['message'] = "No matching record found for ID $carid.";
             }
             header('Location: page_products.php');
             exit();
         } else {
             $_SESSION['status'] = "error";
             $_SESSION['message'] = "Error updating record: " . $conn->error;
-            header('Location: formEdit.php?id=' . $id);
+            header('Location: formEdit.php?carid=' . $carid);
             exit();
         }
     }
@@ -203,9 +203,9 @@ $conn->close();
 </div>
 </a>
 
-<a href="logout.php" class="text-decoration-none">
+<a href="logoutAdmin.php" class="text-decoration-none">
 <div class="menu-item">
-<a href="logout.php" class="menu-link">
+<a href="logoutAdmin.php" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
 <span class="menu-text">logout</span>
 </a>
@@ -249,7 +249,7 @@ Form Elements <small>page header description goes here...</small>
 <p>More complex forms can be built using bootstrap grid classes. Use these for form layouts that require multiple columns, varied widths, and additional alignment options.</p>
 <div class="card">
 <div class="card-body">
-<form action="formEdit.php?id=<?php echo $id?>" method="POST" name="formEdit">
+<form action="formEdit.php?carid=<?php echo $carid?>" method="POST" name="formEdit">
 <div class="mb-3 row">
 <label for="inputEmail3" class="col-sm-2 col-form-label">carname</label>
 <div class="col-sm-10">

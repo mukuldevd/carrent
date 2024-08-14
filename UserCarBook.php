@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php 
-	session_start();
-    $conn = new mysqli('localhost', 'root', '', 'rentalcar');
+<?php
+session_start();
 
-	
+$conn = new mysqli('localhost', 'root', '', 'rentalcar');
+
 $today = date('Y-m-d');
 
-	if (isset($_POST['submit'])) {
-		$datebooking = $_POST['datebooking'];
-		$timebooking = $_POST['timebooking'];
-		$username = $_SESSION['username'];
-		$carname = $_POST['carname'];
-		$cartype = $_POST['cartype'];
-		$price = $_POST['price'];
-		$services = $_POST['services'];
-	
-		$sql = "INSERT INTO usercarstatus (datebooking, timebooking, username, carname, cartype, price, services) VALUES ('$datebooking', '$timebooking', '$username', '$cartype', '$price', '$services', '$carname')";
-		if($conn->query($sql) == TRUE){
-			header('location:uesr_car_status.php');
-			echo "New record created successfully";
-		}else{
-			echo 'data not inserted';
-		}
+if (isset($_POST['submit'])) {
+    $datebooking = $_POST['datebooking'];
+    $timebooking = $_POST['timebooking'];
+    $username = $_SESSION['username'];
+    $userid = $_SESSION['userid'];
+    $carname = $_POST['carname'];
+    $cartype = $_POST['cartype'];
+    $price = $_POST['price'];
+    $services = $_POST['services'];
+	$carid = $_POST['carid'];
 
+    $sql = "INSERT INTO usercarstatus (userid, carid, datebooking, timebooking, username, carname, cartype, price, services)
+VALUES ('$userid','$carid', '$datebooking', '$timebooking', '$username', '$carname', '$cartype', '$price', '$services');
+";
 
-	}
-	
+    if ($conn->query($sql) == true) {
+        header('location:uesr_car_status.php');
+        echo "New record created successfully";
+    } else {
+        echo 'data not inserted';
+    }
+
+}
+
+if (isset($_GET['carid'])) {
+    $carid = $_GET['carid'];
+}
+
 ?>
 <!-- Mirrored from seantheme.com/studio/form_elements.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:31:15 GMT -->
 <head>
@@ -66,7 +74,7 @@ $today = date('Y-m-d');
 </a>
 </div>
 
-
+<?php echo $_SESSION['userid']; ?>
 <div class="menu">
 <form class="menu-search" method="POST" name="header_search_form">
 <div class="menu-search-icon"><i class="fa fa-search"></i></div>
@@ -153,7 +161,9 @@ $today = date('Y-m-d');
 </div>
 
 </div>
-
+<?php
+echo '<h1>Welcome ' . $_SESSION['userid'] . '</h1>';
+?>
 <div id="sidebar" class="app-sidebar">
 <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
 <div class="menu">
@@ -161,18 +171,27 @@ $today = date('Y-m-d');
 
 
 <div class="menu-item active">
-<a href="index.html" class="menu-link">
+<a href="" class="menu-link">
 <span class="menu-icon"><i class="fa fa-laptop"></i></span>
 <span class="menu-text">Dashboard</span>
 </a>
 </div>
 
 
-<a href="uesr_car status.php" class="text-decoration-none">
+<a href="uesr_car_status.php" class="text-decoration-none">
 <div class="menu-item">
-<a href="uesr_car status.php" class="menu-link">
+<a href="uesr_car_status.php" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
-<span class="menu-text">car status</span>
+<span class="menu-text">Car Status</span>
+</a>
+</div>
+</a>
+
+<a href="YourBookingDetails.php" class="text-decoration-none">
+<div class="menu-item">
+<a href="YourBookingDetails.php" class="menu-link">
+<span class="menu-icon"><i class="fa fa-qrcode"></i></span>
+<span class="menu-text">Your Booking Details</span>
 </a>
 </div>
 </a>
@@ -228,7 +247,10 @@ Car Book <small>page header description goes here...</small>
 <form action="UserCarBook.php" method="POST" name="UserCarBook">
 
 
-<input type="hidden" name="username" value="">
+
+<input type="hidden" name="carid" value="<?php echo $carid; ?>">
+
+
 
 <div class="mb-3 row">
 <label for="inputEmail3" class="col-sm-2 col-form-label">carname</label>
@@ -257,13 +279,13 @@ Car Book <small>page header description goes here...</small>
 <div class="mb-3 row">
 <label for="inputPassword3" class="col-sm-2 col-form-label">Car book pick up date</label>
 <div class="col-sm-10">
-<input type="date" name="datebooking" class="form-control" id="inputPassword3">
+<input type="date" name="datebooking" class="form-control" id="inputPassword3" min="<?php echo $today; ?>" required>
 </div>
 </div>
 <div class="mb-3 row">
 <label for="inputPassword3" class="col-sm-2 col-form-label">Car book pick up time</label>
 <div class="col-sm-10">
-<input type="time" name="timebooking" class="form-control" id="inputPassword3" min="<?php echo $today; ?>">
+<input type="time" name="timebooking" class="form-control" id="inputPassword3">
 </div>
 </div>
 

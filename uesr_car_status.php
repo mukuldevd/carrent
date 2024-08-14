@@ -14,8 +14,18 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
+
+
 // SQL query to fetch data
-$sql = "SELECT * FROM carprice";
+$sql = "SELECT * FROM `carprice` WHERE `STATUS` = 1";
+// $sql = "
+//     SELECT c.carid, c.carname, c.cartype, c.price, c.services, c.created_at, c.updated_at, c.status
+//     FROM carprice c
+//     LEFT JOIN usercarstatus ucs ON c.carid = ucs.carid
+//     WHERE c.status = 1 AND ucs.carid IS NULL
+// ";
+
 $result = $conn->query($sql);
 ?>
 
@@ -159,11 +169,20 @@ $result = $conn->query($sql);
 </div>
 
 
-<a href="page_products.php" class="text-decoration-none">
+<a href="uesr_car_status.php" class="text-decoration-none">
 <div class="menu-item">
-<a href="widgets.html" class="menu-link">
+<a href="uesr_car_status.php" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
-<span class="menu-text">car status</span>
+<span class="menu-text">Car Status</span>
+</a>
+</div>
+</a>
+
+<a href="YourBookingDetails.php" class="text-decoration-none">
+<div class="menu-item">
+<a href="YourBookingDetails.php" class="menu-link">
+<span class="menu-icon"><i class="fa fa-qrcode"></i></span>
+<span class="menu-text">Your Booking Details</span>
 </a>
 </div>
 </a>
@@ -254,7 +273,6 @@ $result = $conn->query($sql);
 <th class="pt-0 pb-2"></th>
 <th class="pt-0 pb-2">carname</th>
 <th class="pt-0 pb-2">cartype</th>
-<th class="pt-0 pb-2">price</th>
 <th class="pt-0 pb-2">services-name</th>
 <th class="pt-0 pb-2">status</th>
 <th class="pt-0 pb-2">Booking status</th>
@@ -268,16 +286,15 @@ if ($result->num_rows > 0) {
     // Output data for each row
     while($row = $result->fetch_assoc()) {
 		echo "<tr>";
-		echo '<td class="align-middle"><div class="ms-3"><a href="page_product_details.html">' . $row["id"] . '</a></div></td>';
+		echo '<td class="align-middle"><div class="ms-3"><a href="page_product_details.html">' . $row["carid"] . '</a></div></td>';
         echo '<td class="align-middle"><div class="ms-3"><a href="page_product_details.html">' . $row["carname"] . '</a></div></td>';
         echo '<td class="align-middle">' . $row["cartype"] . '</td>';
-        echo '<td class="align-middle">' . $row["price"] . '</td>';
         echo '<td class="align-middle">' . $row["services"] . '</td>';
 		echo '<td class="align-middle">' .($row["status"] == 1 ? "Available" : "Unavailable"). '</td>';
         echo '<td class="align-middle"></td>';
         echo '<td class="align-middle">';
-        echo '<a href="UserCarBook.php" type="button" class="btn btn-primary"><i class="fas fa-edit"></i>Book Now</a>';
-        echo '</td>';
+        echo "<a href='UserCarBook.php?carid=" . $row['carid'] . "' type='button' class='btn btn-primary'><i class='fas fa-edit'></i>Book Now</a>";
+echo '</td>';
         echo "</tr>";
 	} 
 }else {

@@ -32,9 +32,11 @@
 			if($query->num_rows > 0){
 				$row = $query->fetch_assoc();
 				$username = $row['username'];
+				$username = $row['id'];
 				
 				
 				$_SESSION['username'] = $username;
+				$_SESSION['id'] = $id;
 				
 				header('location:dashboard.php');
 			}else{

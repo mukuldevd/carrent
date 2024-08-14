@@ -168,9 +168,9 @@ $result = $conn->query($sql);
 </div>
 </a>
 
-<a href="logout.php" class="text-decoration-none">
+<a href="logoutAdmin.php" class="text-decoration-none">
 <div class="menu-item">
-<a href="logout.php" class="menu-link">
+<a href="logoutAdmin.php" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
 <span class="menu-text">logout</span>
 </a>
@@ -268,15 +268,15 @@ if ($result->num_rows > 0) {
     // Output data for each row
     while($row = $result->fetch_assoc()) {
 		echo "<tr>";
-		echo '<td class="align-middle"><div class="ms-3"><a href="page_product_details.html">' . $row["id"] . '</a></div></td>';
+		echo '<td class="align-middle"><div class="ms-3"><a href="page_product_details.html">' . $row["carid"] . '</a></div></td>';
         echo '<td class="align-middle"><div class="ms-3"><a href="page_product_details.html">' . $row["carname"] . '</a></div></td>';
         echo '<td class="align-middle">' . $row["cartype"] . '</td>';
         echo '<td class="align-middle">' . $row["price"] . '</td>';
         echo '<td class="align-middle">' . $row["services"] . '</td>';
 		echo '<td class="align-middle">' .($row["status"] == 1 ? "Available" : "Unavailable"). '</td>';
         echo '<td class="align-middle">';
-        echo '<a href="formEdit.php?id=' . $row["id"] . '" type="button" class="btn btn-primary"><i class="fas fa-edit"></i></a>';
-        echo '<a href="formdelete.php?id=' . $row["id"] . '" type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>';
+        echo '<a href="formEdit.php?carid=' . $row["carid"] . '" type="button" class="btn btn-primary"><i class="fas fa-edit"></i></a>';
+        echo '<a href="formdelete.php?carid=' . $row["carid"] . '" type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>';
         echo '</td>';
         echo "</tr>";
 	} 

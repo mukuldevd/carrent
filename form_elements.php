@@ -172,7 +172,7 @@
 
 <a href="page_products.php" class="text-decoration-none">
 <div class="menu-item">
-<a href="" class="menu-link">
+<a href="page_products.php" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
 <span class="menu-text">car rental services</span>
 </a>

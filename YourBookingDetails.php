@@ -1,15 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--  -->
+
 <?php 
-	session_start();
-    $conn = new mysqli('localhost', 'root', '', 'rentalcar');
-	
-	
+session_start();
+
+$conn = new mysqli('localhost', 'root', '', 'rentalcar');
+
+
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$userid = $_SESSION['userid'];
+
+// SQL query to fetch data
+$sql = "
+    SELECT id, datebooking, timebooking, username, userid, carid, created_at, updated_at, carname, cartype, price, services
+    FROM usercarstatus
+    WHERE userid = $userid
+    AND carid IS NOT NULL
+";
+
+$result = $conn->query($sql);
 ?>
-<!-- Mirrored from seantheme.com/studio/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:29:44 GMT -->
+
+<!-- Mirrored from seantheme.com/studio/page_products.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:31:37 GMT -->
 <head>
 <meta charset="utf-8">
-<title>Studio | Dashboard</title>
+<title>Studio | Products</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content>
 <meta name="author" content>
@@ -117,7 +138,7 @@
 <div class="menu-img online">
 <img src="assets/img/user/user.jpg" alt class="ms-100 mh-100 rounded-circle">
 </div>
-<div class="menu-text"><span class="__cf_email__" data-cfemail="81ebeee9eff2ece8f5e9c1f2f5f4e5e8eeafe2eeec">[email&#160;protected]</span></div>
+<div class="menu-text"><span class="__cf_email__" data-cfemail="2b414443455846425f436b585f5e4f424405484446">[email&#160;protected]</span></div>
 </a>
 <div class="dropdown-menu dropdown-menu-end me-lg-3">
 <a class="dropdown-item d-flex align-items-center" href="profile.html">Edit Profile <i class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i></a>
@@ -132,7 +153,6 @@
 
 </div>
 
-
 <div id="sidebar" class="app-sidebar">
 <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
 <div class="menu">
@@ -140,16 +160,16 @@
 
 
 <div class="menu-item active">
-<a href="index.html" class="menu-link">
+<a href="" class="menu-link">
 <span class="menu-icon"><i class="fa fa-laptop"></i></span>
 <span class="menu-text">Dashboard</span>
 </a>
 </div>
 
 
-<a href="UserCarBook.php" class="text-decoration-none">
+<a href="uesr_car_status.php" class="text-decoration-none">
 <div class="menu-item">
-<a href="UserCarBook.php" class="menu-link">
+<a href="uesr_car_status.php" class="menu-link">
 <span class="menu-icon"><i class="fa fa-qrcode"></i></span>
 <span class="menu-text">Car Status</span>
 </a>
@@ -183,207 +203,147 @@
 </div>
 
 <button class="app-sidebar-mobile-backdrop" data-dismiss="sidebar-mobile"></button>
+
 </div>
 
 
 <div id="content" class="app-content">
-<h1 class="page-header mb-3">
-<?php  
-if(isset($_SESSION['username']) && isset($_SESSION['userid'])) {
-    echo '<h1>Welcome '.$_SESSION['username'].'</h1>';
-    echo '<h1>Your User ID is '.$_SESSION['userid'].'</h1>';
-} else {
-    echo '<h1>Please log in first.</h1>';
+<div class="d-flex align-items-center mb-3">
+<div>
+<ul class="breadcrumb">
+<li class="breadcrumb-item"><a href="#">PAGES</a></li>
+<li class="breadcrumb-item active">PRODUCTS</li>
+</ul>
+<h1 class="page-header mb-0">Products</h1>
+</div>
+<div class="ms-auto">
+
+</div>
+</div>
+<div class="mb-sm-4 mb-3 d-sm-flex">
+<div class="mt-sm-0 mt-2"><a href="#" class="text-body text-decoration-none"><i class="fa fa-download fa-fw me-1 text-muted"></i> Export</a></div>
+<div class="ms-sm-4 mt-sm-0 mt-2"><a href="#" class="text-body text-decoration-none"><i class="fa fa-upload fa-fw me-1 text-muted"></i> Import</a></div>
+<div class="ms-sm-4 mt-sm-0 mt-2 dropdown-toggle">
+<a href="#" data-bs-toggle="dropdown" class="text-body text-decoration-none">More Actions</a>
+<div class="dropdown-menu">
+<a class="dropdown-item" href="#">Action</a>
+<a class="dropdown-item" href="#">Another action</a>
+<a class="dropdown-item" href="#">Something else here</a>
+<div role="separator" class="dropdown-divider"></div>
+<a class="dropdown-item" href="#">Separated link</a>
+</div>
+</div>
+</div>
+<div class="card">
+<ul class="nav nav-tabs nav-tabs-v2 px-4">
+<li class="nav-item me-3"><a href="#allTab" class="nav-link active px-2" data-bs-toggle="tab">All</a></li>
+<li class="nav-item me-3"><a href="#publishedTab" class="nav-link px-2" data-bs-toggle="tab">Published</a></li>
+<li class="nav-item me-3"><a href="#expiredTab" class="nav-link px-2" data-bs-toggle="tab">Expired</a></li>
+<li class="nav-item me-3"><a href="#deletedTab" class="nav-link px-2" data-bs-toggle="tab">Deleted</a></li>
+</ul>
+<div class="tab-content p-4">
+<div class="tab-pane fade show active" id="allTab">
+
+<div class="input-group mb-4">
+<button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter products &nbsp;</button>
+<div class="dropdown-menu">
+<a class="dropdown-item" href="#">Action</a>
+<a class="dropdown-item" href="#">Another action</a>
+<a class="dropdown-item" href="#">Something else here</a>
+<div role="separator" class="dropdown-divider"></div>
+<a class="dropdown-item" href="#">Separated link</a>
+</div>
+<div class="flex-fill position-relative z-1">
+<div class="input-group">
+<div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0" style="z-index: 1020;">
+<i class="fa fa-search opacity-5"></i>
+</div>
+<input type="text" class="form-control ps-35px" placeholder="Search products">
+</div>
+</div>
+</div>
+
+
+<div class="table-responsive">
+<table class="table table-hover text-nowrap">
+<thead>
+<tr>
+<th class="pt-0 pb-2">Booking Id</th>
+<th class="pt-0 pb-2">Date Booking</th>
+<th class="pt-0 pb-2">time booking</th>
+<th class="pt-0 pb-2">username</th>
+<th class="pt-0 pb-2">userid</th>
+<th class="pt-0 pb-2">carid</th>
+<th class="pt-0 pb-2">carname</th>
+<th class="pt-0 pb-2">updated_at</th>
+<th class="pt-0 pb-2">created_at</th>
+<th class="pt-0 pb-2">cartype</th>
+<th class="pt-0 pb-2">price</th>
+<th class="pt-0 pb-2">services-name</th>
+<th class="pt-0 pb-2">status</th>
+<th class="pt-0 pb-2">action</th>
+</tr>
+</thead>
+
+<tbody>
+
+<?php
+if ($result->num_rows > 0) {
+    // Output data for each row
+    while($row = $result->fetch_assoc()) {
+		echo "<tr>";
+		echo '<td class="align-middle">' . $row["id"] . '</a></div></td>';
+        echo '<td class="align-middle">' . $row["datebooking"] . '</a></div></td>';
+        echo '<td class="align-middle">' . $row["timebooking"] . '</td>';
+        echo '<td class="align-middle">' . $row["username"] . '</td>';
+        echo '<td class="align-middle">' . $row["userid"] . '</td>';
+        echo '<td class="align-middle">' . $row["carid"] . '</a></div></td>';
+        echo '<td class="align-middle">' . $row["created_at"] . '</a></div></td>';
+        echo '<td class="align-middle">' . $row["updated_at"] . '</td>';
+        echo '<td class="align-middle">' . $row["carname"] . '</td>';
+        echo '<td class="align-middle">' . $row["cartype"] . '</td>';
+        echo '<td class="align-middle">' . $row["price"] . '</td>';
+        echo '<td class="align-middle">' . $row["services"] . '</td>';
+        echo '<td class="align-middle"></td>';
+		echo '<td class="align-middle">';
+        echo '<a href="YourBookingDetailsEdit.php?id=' . $row["id"] . '" type="button" class="btn btn-primary"><i class="fas fa-edit"></i></a>';
+        echo '<a href="YourBookingDetailsDelete.php?id=' . $row["id"] . '" type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i>';
+        echo '</td>';
+        echo "</tr>";
+	} 
+}else {
+    echo "No bookings found for this user.";
 }
+
+$conn->close();
 ?>
-</h1>
-
-<div class="row">
-
-<div class="col-xl-6 mb-3">
-
-<div class="card h-100 overflow-hidden">
-
-<div class="card-img-overlay d-block d-lg-none bg-blue rounded"></div>
 
 
-<div class="card-img-overlay d-none d-md-block bg-blue rounded mb-n1 mx-n1" style="background-image: url(assets/img/bg/wave-bg.png); background-position: right bottom; background-repeat: no-repeat; background-size: 100%;"></div>
 
 
-<div class="card-img-overlay d-none d-md-block bottom-0 top-auto">
-<div class="row">
-<div class="col-md-8 col-xl-6"></div>
-<div class="col-md-4 col-xl-6 mb-n2">
-<img src="assets/img/page/dashboard.svg" alt class="d-block ms-n3 mb-5" style="max-height: 310px">
-</div>
-</div>
+</tbody>
+</table>
 </div>
 
-
-<div class="card-body position-relative text-white text-opacity-70">
-
-<div class="row">
-
-<div class="col-md-8">
-
-<div class="d-flex">
-<div class="me-auto">
-<h5 class="text-white text-opacity-80 mb-3">Weekly Earning</h5>
-<h3 class="text-white mt-n1 mb-1">$2,999.80</h3>
-<p class="mb-1 text-white text-opacity-60 text-truncate">
-<i class="fa fa-caret-up"></i> <b>32%</b> increase compare to last week
-</p>
+<div class="d-md-flex align-items-center">
+<div class="me-md-auto text-md-left text-center mb-2 mb-md-0">
+Showing 1 to 10 of 57 entries
 </div>
-</div>
-<hr class="bg-white bg-opacity-75 mt-3 mb-3">
-
-<div class="row">
-<div class="col-6 col-lg-5">
-<div class="mt-1">
-<i class="fa fa-fw fa-shopping-bag fs-28px text-black text-opacity-50"></i>
-</div>
-<div class="mt-1">
-<div>Store Sales</div>
-<div class="fw-600 text-white">$1,629.80</div>
-</div>
-</div>
-<div class="col-6 col-lg-5">
-<div class="mt-1">
-<i class="fa fa-fw fa-retweet fs-28px text-black text-opacity-50"></i>
-</div>
-<div class="mt-1">
-<div>Referral Sales</div>
-<div class="fw-600 text-white">$700.00</div>
-</div>
-</div>
-</div>
-<hr class="bg-white bg-opacity-75 mt-3 mb-3">
-<div class="mt-3 mb-2">
-<a href="#" class="btn btn-yellow btn-rounded btn-sm ps-5 pe-5 pt-2 pb-2 fs-14px fw-600"><i class="fa fa-wallet me-2 ms-n2"></i> Withdraw money</a>
-</div>
-<p class="fs-12px">
-It usually takes 3-5 business days for transferring the earning to your bank account.
-</p>
-</div>
-
-
-<div class="col-md-4 d-none d-md-block" style="min-height: 380px;"></div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="col-xl-6">
-<div class="row">
-<div class="col-sm-6">
-<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-orange" style="min-height: 199px;">
-<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-<img src="assets/img/icon/order.svg" alt class="ms-auto d-block mb-n3" style="max-height: 105px">
-</div>
-<div class="card-body position-relative">
-<h5 class="text-white text-opacity-80 mb-3 fs-16px">Chauffeur driven small cars</h5>
-<h3 class="text-white mt-n1">56</h3>
-<div class="progress bg-black bg-opacity-50 mb-2" style="height: 6px">
-<div class="progrss-bar progress-bar-striped bg-white" style="width: 80%"></div>
-</div>
-<div class="text-white text-opacity-80 mb-4"><i class="fa fa-caret-up"></i> 16% increase <br>compare to last week</div>
-<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
-</div>
-</div>
-<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-teal" style="min-height: 199px;">
-<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-<img src="assets/img/icon/visitor.svg" alt class="ms-auto d-block mb-n3" style="max-height: 105px">
-</div>
-<div class="card-body position-relative">
-<h5 class="text-white text-opacity-80 mb-3 fs-16px">Chauffeur driven large/SUV cars
-</h5>
-<h3 class="text-white mt-n1">60.5k</h3>
-<div class="progress bg-black bg-opacity-50 mb-2" style="height: 6px">
-<div class="progrss-bar progress-bar-striped bg-white" style="width: 50%"></div>
-</div>
-<div class="text-white text-opacity-80 mb-4"><i class="fa fa-caret-up"></i> 33% increase <br>compare to last week</div>
-<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
-</div>
-</div>
-</div>
-
-
-<div class="col-sm-6">
-<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-pink" style="min-height: 199px;">
-<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-<img src="assets/img/icon/email.svg" alt class="ms-auto d-block mb-n3" style="max-height: 105px">
-</div>
-<div class="card-body position-relative">
-<h5 class="text-white text-opacity-80 mb-3 fs-16px">Chauffeur driven mid sized cars</h5>
-<h3 class="text-white mt-n1">30</h3>
-<div class="progress bg-black bg-opacity-50 mb-2" style="height: 6px">
-<div class="progrss-bar progress-bar-striped bg-white" style="width: 80%"></div>
-</div>
-<div class="text-white text-opacity-80 mb-4"><i class="fa fa-caret-down"></i> 5% decrease <br>compare to last week</div>
-<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
-</div>
-</div>
-<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-indigo" style="min-height: 199px;">
-<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-<img src="assets/img/icon/browser.svg" alt class="ms-auto d-block mb-n3" style="max-height: 105px">
-</div>
-<div class="card-body position-relative">
-<h5 class="text-white text-opacity-80 mb-3 fs-16px">Page Views</h5>
-<h3 class="text-white mt-n1">320.4k</h3>
-<div class="progress bg-black bg-opacity-50 mb-2" style="height: 6px">
-<div class="progrss-bar progress-bar-striped bg-white" style="width: 80%"></div>
-</div>
-<div class="text-white text-opacity-80 mb-4"><i class="fa fa-caret-up"></i> 20% increase <br>compare to last week</div>
-<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white text-opacity-50"></i></a></div>
-</div>
-</div>
-
+<ul class="pagination mb-0 justify-content-center">
+<li class="page-item disabled"><a class="page-link">Previous</a></li>
+<li class="page-item"><a class="page-link" href="#">1</a></li>
+<li class="page-item active"><a class="page-link" href="#">2</a></li>
+<li class="page-item"><a class="page-link" href="#">3</a></li>
+<li class="page-item"><a class="page-link" href="#">4</a></li>
+<li class="page-item"><a class="page-link" href="#">5</a></li>
+<li class="page-item"><a class="page-link" href="#">6</a></li>
+<li class="page-item"><a class="page-link" href="#">Next</a></li>
+</ul>
 </div>
 </div>
 </div>
 </div>
-
-
-<div class="row">
-
-<div class="col-xl-6">
-
-<div class="row">
-
-<div class="col-sm-6 mb-3 d-flex flex-column">
-
-<div class="card mb-3 flex-1">
-
-
-
-
-
-
 </div>
-
-
-
-
-</div>
-
-</div>
-
-
-
-
-</div>
-
-
-<div class="row">
-
-<div class="col-xl-6 mb-3">
-
-
 
 
 <a href="#" data-click="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
@@ -429,24 +389,20 @@ Adjust the appearance to reduce glare and give your eyes a break.
 </div>
 
 
-<script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/vendor.min.js" type="0913596ab4f2ecc065ab39da-text/javascript"></script>
-<script src="assets/js/app.min.js" type="0913596ab4f2ecc065ab39da-text/javascript"></script>
+<script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/vendor.min.js" type="59345fa577d7dffb08a9b947-text/javascript"></script>
+<script src="assets/js/app.min.js" type="59345fa577d7dffb08a9b947-text/javascript"></script>
 
 
-<script src="assets/plugins/apexcharts/dist/apexcharts.min.js" type="0913596ab4f2ecc065ab39da-text/javascript"></script>
-<script src="assets/js/demo/dashboard.demo.js" type="0913596ab4f2ecc065ab39da-text/javascript"></script>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3Q0VGQKY3" type="0913596ab4f2ecc065ab39da-text/javascript"></script>
-<script type="0913596ab4f2ecc065ab39da-text/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3Q0VGQKY3" type="59345fa577d7dffb08a9b947-text/javascript"></script>
+<script type="59345fa577d7dffb08a9b947-text/javascript">
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 
 		gtag('config', 'G-Y3Q0VGQKY3');
 	</script>
-<script src="../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="0913596ab4f2ecc065ab39da-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8afd74217c175277","version":"2024.7.0","r":1,"serverTiming":{"name":{"cfL4":true}},"token":"4db8c6ef997743fda032d4f73cfeff63","b":1}' crossorigin="anonymous"></script>
+<script src="../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="59345fa577d7dffb08a9b947-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8afd7483ac144dd9","version":"2024.7.0","r":1,"serverTiming":{"name":{"cfL4":true}},"token":"4db8c6ef997743fda032d4f73cfeff63","b":1}' crossorigin="anonymous"></script>
 </body>
 
-<!-- Mirrored from seantheme.com/studio/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:30:08 GMT -->
+<!-- Mirrored from seantheme.com/studio/page_products.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:31:41 GMT -->
 </html>

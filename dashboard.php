@@ -4,6 +4,11 @@
 	session_start();
     $conn = new mysqli('localhost', 'root', '', 'rentalcar');
 
+	// if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+	// 	// If not logged in, redirect to login page
+	// 	header("Location: admin_login.php");
+	// 	exit();
+	// }
 	
 ?>
 <!-- Mirrored from seantheme.com/studio/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2024 06:29:44 GMT -->
