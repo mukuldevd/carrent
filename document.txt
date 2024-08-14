@@ -1,0 +1,17 @@
+http://localhost/studio-car-rent/admin_registration.php
+http://localhost/studio-car-rent/admin_login.php
+http://localhost/studio-car-rent/dashboard.php
+http://localhost/studio-car-rent/page_products.php
+http://localhost/studio-car-rent/formEdit.php?carid=8
+http://localhost/studio-car-rent/form_elements.php
+http://localhost/studio-car-rent/formdelete.php?carid=10
+http://localhost/studio-car-rent/logoutAdmin.php
+
+http://localhost/studio-car-rent/user_registration.php
+http://localhost/studio-car-rent/user_login.php
+http://localhost/studio-car-rent/dashboardUser.php
+http://localhost/studio-car-rent/uesr_car_status.php
+http://localhost/studio-car-rent/UserCarBook.php?carid=9
+http://localhost/studio-car-rent/YourBookingDetails.php
+http://localhost/studio-car-rent/YourBookingDetailsEdit.php?id=22
+http://localhost/studio-car-rent/logout.php
